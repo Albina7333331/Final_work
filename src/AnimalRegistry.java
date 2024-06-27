@@ -35,7 +35,7 @@ abstract class Animal {
         return "Name: " + name + ", BirthDate: " + birthDate + ", Commands: " + commands;
     }
 }
-
+//добавлены абстрактные классы Pet PackAnimal
 abstract class Pet extends Animal {
     public Pet(String name, String birthDate) {
         super(name, birthDate);
@@ -47,7 +47,7 @@ abstract class PackAnimal extends Animal {
         super(name, birthDate);
     }
 }
-
+//добавлены классы животных для создания реестра
 class Dog extends Pet {
     public Dog(String name, String birthDate) {
         super(name, birthDate);
@@ -83,7 +83,7 @@ class Donkey extends PackAnimal {
         super(name, birthDate);
     }
 }
-
+//добавлен класс Counter с автоматическим закрытием ресурсов после окончания их использования
 class Counter implements AutoCloseable {
     private int count = 0;
     private boolean closed = false;
@@ -157,7 +157,7 @@ public class AnimalRegistry {
             }
         }
     }
-
+    //Добавлено меню для взаимодействия с пользователем
     private static void printMenu() {
         System.out.println("\n--- Меню ---");
         System.out.println("1. Завести новое животное");
@@ -169,7 +169,7 @@ public class AnimalRegistry {
         System.out.println("7. Выход");
         System.out.print("Выберите опцию: ");
     }
-
+//Считывание того, что ввел пользователь
     private static void registerAnimal(Counter counter) throws Exception {
         System.out.print("Введите имя животного: ");
         String name = scanner.nextLine();
@@ -182,7 +182,7 @@ public class AnimalRegistry {
             System.out.println("Ошибка: Все поля должны быть заполнены.");
             return;
         }
-
+        //ОТНЕСЕНИЕ ЖИВОТНЫХ К ОПРЕДЕЛЕННОМУ ТИПУ ИЛИ ПРОВЕРКА, ЧТО ТАКОГО ТИПА НЕТ
         Animal animal;
         switch (type.toLowerCase()) {
             case "dog":
@@ -226,7 +226,7 @@ public class AnimalRegistry {
             System.out.println("Животное с именем " + name + " не найдено.");
         }
     }
-
+// Обучение командам животных
     private static void trainAnimal() {
         System.out.print("Введите имя животного: ");
         String name = scanner.nextLine();
@@ -240,28 +240,28 @@ public class AnimalRegistry {
             System.out.println("Животное с именем " + name + " не найдено.");
         }
     }
-
+    //Список всех животных
     private static void listAllAnimals() {
         System.out.println("\nСписок всех животных:");
         for (Animal animal : animals.values()) {
             System.out.println(animal);
         }
     }
-
+    //Количество домашних животных
     private static void countPets() {
         long petCount = animals.values().stream()
                 .filter(animal -> animal instanceof Pet)
                 .count();
         System.out.println("Количество домашних животных: " + petCount);
     }
-
+//Количество вьючных животных
     private static void countPackAnimals() {
         long packAnimalCount = animals.values().stream()
                 .filter(animal -> animal instanceof PackAnimal)
                 .count();
         System.out.println("Количество вьючных животных: " + packAnimalCount);
     }
-
+    //Сохранение в файл, проверка на ошибки записи
     private static void saveAnimalsToFile(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (Animal animal : animals.values()) {
