@@ -235,6 +235,7 @@ public class AnimalRegistry {
             System.out.print("Введите новую команду для животного " + name + ": ");
             String command = scanner.nextLine();
             animal.addCommand(command);
+            AnimalRegistry.saveAnimalsToFile("animals.txt");
             System.out.println("Животное " + name + " успешно обучено команде: " + command);
         } else {
             System.out.println("Животное с именем " + name + " не найдено.");
